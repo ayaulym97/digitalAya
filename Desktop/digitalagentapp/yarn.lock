@@ -4098,12 +4098,6 @@ react-native-animatable@^1.2.4:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-blur@^3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/react-native-blur/-/react-native-blur-3.2.2.tgz#5bfb50638d148982c9560436554ed01d77d6d07d"
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-button@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-native-button/-/react-native-button-2.3.0.tgz#7d0a90095d415b0edf98a904556a7c4439646568"
@@ -4115,6 +4109,12 @@ react-native-circular-progress@^1.0.1:
   resolved "https://registry.yarnpkg.com/react-native-circular-progress/-/react-native-circular-progress-1.0.1.tgz#94a0e9b1f2ec28ce0fa56665ef29dfba99d1d2d6"
   dependencies:
     prop-types "^15.6.0"
+
+react-native-collapsible@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-collapsible/-/react-native-collapsible-1.4.0.tgz#ec03cac361178319b77bb9993b73677356dd89d2"
+  dependencies:
+    prop-types "^15.6.2"
 
 react-native-confirmation-code-input@^1.0.4:
   version "1.0.4"
@@ -4169,9 +4169,9 @@ react-native-star-rating@^1.1.0:
     react-native-button "^2.3.0"
     react-native-vector-icons "^4.5.0"
 
-react-native-svg@^8.0.8:
-  version "8.0.8"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-8.0.8.tgz#5d4c636751d9db2d98a9b3cfc4ef45c4eac65d60"
+react-native-svg@^8.0.10:
+  version "8.0.10"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-8.0.10.tgz#b07e2342d1486220f5fda1a584e316e7d2d1f392"
   dependencies:
     color "^2.0.1"
     lodash "^4.16.6"

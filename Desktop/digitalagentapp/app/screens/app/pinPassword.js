@@ -5,19 +5,19 @@ import {
   Text,
   Modal,
   Image,
-  StyleSheet
+  StyleSheet,
+  
 } from "react-native";
 import { scale } from "../../uitls/index";
 import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
-import { BlurView } from "react-native-blur";
 import PinView from "../../components/PinView";
 export default class PinPassword extends Component {
   state = {
     modalVisible: false,
     viewRef: null
   };
- 
+
   render() {
     return (
       <View style={StylePanel.container}>
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
   },
   footerStyle: {
     flex: 1,
+    flexDirection: 'row',
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
@@ -157,13 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: Theme.colors.bcground,
     justifyContent: "center",
     alignItems: "center"
-  },
-  footerStyle: {
-    height: 45,
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginHorizontal: "10%"
   },
   sendBtnTxt: {
     fontSize: Theme.fonts.sizes.p6,

@@ -6,13 +6,16 @@ import IntroPage from "./IntroPage"
 import SearchInput from "./SearchInput";
 import SelectPage from "./SelectPage";
 import PinView from "../components/PinView"
+import ComplaintScoreFive from './complaintScoreFive'
 export {
     Button,
+    Complaint,
+    ComplaintScoreFive,
     Footer,
     LogoView,
-    Complaint,
     IntroPage,
+    PinView,
     SearchInput,
-    SelectPage,
-    PinView
+    SelectPage
+  
 };

@@ -15,6 +15,7 @@ import axios from "axios";
 import ImagePicker from "react-native-image-picker";
 import Icon from "react-native-vector-icons/Ionicons";
 import StarRating from "react-native-star-rating";
+// import CustomIcon from "../../components/CustomIcon"
 import { base_url } from "../../config/const";
 import { Theme } from "../../uitls/theme";
 import { Button, Complaint, Footer } from "../../components";
@@ -29,10 +30,8 @@ const options = {
 };
 export default class Estimate extends Component {
   state = {
-    height: 0,
     modalVisible: false,
     selectedStar: 0,
-    resizedPhoto: "",
     imgUrl: "",
     staffIncompetence: false,
     waitTime: false,
@@ -75,7 +74,7 @@ export default class Estimate extends Component {
         { headers: { Authorization: token } }
       )
       .then(response => {
-        console.log(response.data, "REVIEW66");
+        console.log(response.data, "REVIEW78");
         this.setState({
           review_id: response.data._id
         });
@@ -205,6 +204,7 @@ export default class Estimate extends Component {
           <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
             <View style={styles.headerView}>
               <Text style={styles.header}>Оцените ЦОН</Text>
+     
               <Text style={styles.subHeader}>{this.cons.name}</Text>
               <StarRating
                 maxStars={5}
@@ -218,12 +218,24 @@ export default class Estimate extends Component {
             </View>
 
             <View style={styles.contentView}>
-              {this.state.selectedStar != 0 && this.state.selectedStar != 5 ? (
+              {this.state.selectedStar != 0 ? (
                 <React.Fragment>
-                  <Text style={styles.complaintHeader}>
-                    Что именно не понравилось?
-                  </Text>
+                  <React.Fragment>
+                    {this.state.selectedStar === 5 ? (
+                      <Text style={styles.complaintHeader}>
+                        Что понравилось?
+                      </Text>
+                    ) : (
+                      <Text style={styles.complaintHeader}>
+                        {this.state.selectedStar < 4
+                          ? "Что именно разочаровало?"
+                          : "Что именно не понравилось?"}
+                      </Text>
+                    )}
+                  </React.Fragment>
+
                   <Complaint
+                    selectedStar={this.state.selectedStar}
                     staffIncompetence={this.state.staffIncompetence}
                     waitTime={this.state.waitTime}
                     terribleWaitRoom={this.state.terribleWaitRoom}
@@ -245,7 +257,7 @@ export default class Estimate extends Component {
                   value={this.state.comment}
                 />
               </View>
-              <Text style={styles.commentTxt}>Прикрепите фотографию</Text>
+
               <TouchableOpacity
                 style={styles.takePhoto}
                 onPress={() => this.chooseImage()}
@@ -268,13 +280,17 @@ export default class Estimate extends Component {
                 ) : (
                   <Icon
                     name="ios-camera"
-                    size={32}
+                    size={35}
                     color={Theme.colors.yellow}
-                    style={{ padding: 10 }}
+                    style={{
+                      paddingRight: 16
+                    }}
                   />
                 )}
+                <Text style={styles.takePhotoTxt}>Прикрепите фотографию</Text>
               </TouchableOpacity>
               <Button
+                disable={this.state.selectedStar === 0}
                 text={"Отправить"}
                 sendBtn={StylePanel.sendBtn}
                 onPress={() => this.handleSendBtn()}
@@ -322,11 +338,17 @@ const styles = StyleSheet.create({
     marginHorizontal: "4%"
   },
   commentTxt: {
-    width: "92%",
+     width: "90%",
     marginHorizontal: "4%",
     color: Theme.colors.gray63,
     fontSize: Theme.fonts.sizes.p6,
-    marginVertical: 10
+    marginTop: 16,
+    marginBottom:10
+  },
+  takePhotoTxt:{
+    marginVertical:24,
+    color: "white",
+    fontSize: Theme.fonts.sizes.p6
   },
   commentInput: {
     flex: 1,
@@ -344,20 +366,23 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   takePhoto: {
-    width: 50,
-    height: 50,
-    marginLeft: "4%",
-    justifyContent: "center",
-    alignContent: "center",
-    borderColor: Theme.colors.gray63,
-    borderWidth: 1,
-    borderRadius: 5
+    // width: 50,
+    // height: 50,
+    // marginLeft: "4%",
+    marginHorizontal: "4%",
+    flexDirection: "row",
+    // justifyContent: "center",
+    alignItems: "center"
+    // borderColor: Theme.colors.gray63,
+    // borderWidth: 1,
+    // borderRadius: 5
   },
   complaintHeader: {
     textAlign: "center",
     color: Theme.colors.yellow,
     fontSize: Theme.fonts.sizes.h6,
     fontWeight: "100",
-    marginTop: 15
+    marginTop: 24,
+    marginBottom:14
   }
 });

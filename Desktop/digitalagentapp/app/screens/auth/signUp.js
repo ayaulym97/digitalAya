@@ -31,47 +31,46 @@ export default class SignUp extends PureComponent {
   registerUser() {
     const { iin, phoneNumber } = this.state;
     console.log("IIN", iin, phoneNumber);
-    if(iin==='970612400788' && phoneNumber === '+7 (775) 918-42-77'){
+    if (iin === "970612400788" && phoneNumber === "+7 (775) 918-42-77") {
       axios
-      .post(base_url + "/api/auth/signuptest", {
-        iin: iin,
-        phone: phoneNumber
-      })
-      .then(response => {
-        deviceStorage.saveKey("id_token", response.data.token);
-        console.log(response.data.token)
-        deviceStorage.saveKey("user_id", response.data.data._id);
-        console.log("_ID", response.data.data._id);
-        this.props.navigation.navigate("App");
-      })
-      .catch(error => {
-        console.log(error.data);
-        this.setState({
-          error: true
+        .post(base_url + "/api/auth/signuptest", {
+          iin: iin,
+          phone: phoneNumber
+        })
+        .then(response => {
+          deviceStorage.saveKey("id_token", response.data.token);
+          console.log(response.data.token);
+          deviceStorage.saveKey("user_id", response.data.data._id);
+          console.log("_ID", response.data.data._id);
+          this.props.navigation.navigate("App");
+        })
+        .catch(error => {
+          console.log(error.data);
+          this.setState({
+            error: true
+          });
         });
-      });
-    }else{
+    } else {
       axios
-      .post(base_url + "/api/auth/signup", {
-        iin: iin,
-        phone: phoneNumber
-      })
-      .then(response => {
-        deviceStorage.saveKey("user_id", response.data._id);
-        console.log("_ID", response.data._id);
-        this.props.navigation.navigate("CodeConfirm", {
-          data: response.data._id,
-          phone: this.state.phoneNumber
+        .post(base_url + "/api/auth/signup", {
+          iin: iin,
+          phone: phoneNumber
+        })
+        .then(response => {
+          deviceStorage.saveKey("user_id", response.data._id);
+          console.log("_ID", response.data._id);
+          this.props.navigation.navigate("CodeConfirm", {
+            data: response.data._id,
+            phone: this.state.phoneNumber
+          });
+        })
+        .catch(error => {
+          console.log(error.message);
+          this.setState({
+            error: true
+          });
         });
-      })
-      .catch(error => {
-        console.log(error.message);
-        this.setState({
-          error: true
-        });
-      });
-     }
- 
+    }
   }
   render() {
     return (

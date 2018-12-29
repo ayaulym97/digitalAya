@@ -69,7 +69,7 @@ const app = createStackNavigator(
     }
   },
   {
-    initialRouteName: "PinPassword",
+    initialRouteName: "SelectVedom",
     navigationOptions: {
       headerStyle: {
         backgroundColor: Theme.colors.gray26,

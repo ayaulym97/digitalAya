@@ -34,6 +34,7 @@ export default class Called extends Component {
 const styles = StyleSheet.create({
   footerStyle: {
     height: 45,
+    flexDirection: 'row',
     width: "80%",
     justifyContent: "center",
     alignItems: "center",

@@ -59,6 +59,7 @@ export default class SelectServiceCenter extends Component {
           } else {
             this.setState({ cons: res.data });
           }
+        
         });
     } catch (error) {
       console.log("err", error);
@@ -75,6 +76,7 @@ export default class SelectServiceCenter extends Component {
     this.props.navigation.navigate("Estimate", { cons: item,vedom:this.vedom });
   };
   render() {
+    console.log("VEDOMSONA",this.vedom)
     var data = this.state.cons;
     var searchString = this.state.searchTxt.trim().toLowerCase();
     if (searchString.length > 0) {

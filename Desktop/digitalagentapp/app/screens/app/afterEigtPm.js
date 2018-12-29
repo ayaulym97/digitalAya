@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   footerStyle: {
     height: 45,
     width: '80%',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: '10%',

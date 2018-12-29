@@ -1,7 +1,7 @@
-import { createSwitchNavigator, } from "react-navigation";
-import  AppIntro  from "./AppIntro";
+import { createSwitchNavigator } from "react-navigation";
+import AppIntro from "./AppIntro";
 import applicationSwitch from "./ApplicationSwitch";
-const root = (onboarding ='false') => {
+const root = (onboarding = "false") => {
   return createSwitchNavigator(
     {
       AppIntro: {
@@ -12,7 +12,7 @@ const root = (onboarding ='false') => {
       }
     },
     {
-      initialRouteName: onboarding==='true' ? "ApplicationSwitch": "AppIntro"
+      initialRouteName: onboarding === "true" ? "ApplicationSwitch" : "AppIntro"
     }
   );
 };

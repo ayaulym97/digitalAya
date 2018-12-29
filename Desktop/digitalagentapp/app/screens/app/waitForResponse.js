@@ -24,16 +24,14 @@ export default class WaitForResponse extends React.Component {
     };
   }
   componentDidMount() {
-    this.countFill();
+    this.circularProgress.animate(100, 300000, Easing.quad);
     var time_in_minutes = 5;
     var current_time = Date.parse(new Date());
     var deadline = new Date(current_time + time_in_minutes * 60 * 1000);
+    console.log(deadline, "DDAY");
     this.run_clock(deadline);
   }
   review = this.props.navigation.getParam("review", "default");
-  countFill() {
-    this.circularProgress.animate(100, 300000, Easing.quad);
-  }
   run_clock = deadline => {
     clearInterval(timeinterval);
     var timeinterval = setInterval(() => {
@@ -176,6 +174,7 @@ const styles = StyleSheet.create({
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
     marginHorizontal: "5%"
   },
   timeTxt: {

@@ -1,40 +1,52 @@
 import React, { Component } from "react";
-import { View, Animated, TextInput, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Animated,
+  Alert,
+  TextInput,
+  Text,
+  StyleSheet
+} from "react-native";
 import { LogoView } from "../../components";
 import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
 import InputView from "../../components/PinView/InputView";
 import Styles from "../../components/PinView/styles";
-export default class CreatePin extends Component {
+import deviceStorage from "../../service/deviceStorage";
+export default class RepeatPin extends Component {
   state = {
-    // animatedInputIndex: Object.assign([]),
-    animatedInputIndex: '',
-    pinViewAnim: new Animated.Value(0),
-    repeat: false
+    animatedInputIndex: "",
+    pinViewAnim: new Animated.Value(0)
   };
-
+  code = this.props.navigation.getParam("code", "default");
   handleCode = animatedInputIndex => {
-    if (animatedInputIndex.length === 4) {
-      setTimeout(() => {
-        this.props.navigation.navigate("RepeatPin", {
-          code: this.state.animatedInputIndex
-        });
-      }, 500);
-    }
     this.setState({
       animatedInputIndex
     });
-
-    console.log("REPEEE",animatedInputIndex);
+    console.log("INDEX", animatedInputIndex);
+    if (animatedInputIndex.length === 4) {
+      if (this.code === animatedInputIndex) {
+        deviceStorage.saveKey("pincode", this.code);
+        setTimeout(() => {
+          this.props.navigation.navigate("App");
+        }, 500);
+      } else {
+        this.setState({
+          animatedInputIndex: ""
+        });
+        Alert.alert("Ваш пароль и пароль подтверждения не совпадают");
+      }
+    }
   };
 
   render() {
+    console.log("CODe", this.code);
     return (
       <View style={StylePanel.container}>
         <LogoView logostyle={styles.logoView} />
 
         <View style={styles.downView}>
-          <Text style={styles.header}>Придумaйте код доступa</Text>
+          <Text style={styles.header}>Повторите код доступа</Text>
           <InputView
             bgOpacity={0.1}
             pinLength={4}
@@ -60,9 +72,6 @@ export default class CreatePin extends Component {
             placeholder="EEE"
             style={styles.input}
           />
-          <Text style={styles.subtitle}>
-            Вы будете вводить его при входе в приложение
-          </Text>
         </View>
       </View>
     );

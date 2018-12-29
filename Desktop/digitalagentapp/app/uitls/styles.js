@@ -21,6 +21,8 @@ export const StylePanel = {
   },
   footerStyle:{
     flex: 1,
+    flexDirection: 'row',
+
     width: "90%",
     justifyContent: "center",
     alignItems: "center",

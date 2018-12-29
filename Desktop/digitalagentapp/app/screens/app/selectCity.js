@@ -12,7 +12,7 @@ import axios from "axios";
 import Icon from "react-native-vector-icons/Ionicons";
 import { base_url } from "../../config/const";
 import { StylePanel } from "../../uitls/styles";
-import { Call,SelectPage } from "../../components";
+import { Call, SelectPage } from "../../components";
 import { Theme } from "../../uitls/theme";
 export default class SelectCity extends Component {
   constructor(props) {
@@ -29,6 +29,13 @@ export default class SelectCity extends Component {
   vedom = this.props.navigation.getParam("vedom", "default");
   async componentDidMount() {
     this.setState({ modalVisible: true });
+    {/*var first = "role";
+    data.sort(function(x, y) {
+      return x == first ? -1 : y == first ? 1 : 0;
+    });
+
+  console.log(data);*/}
+
     const user_id = await AsyncStorage.getItem("user_id");
     const token = await AsyncStorage.getItem("id_token");
     console.log("TOKEN_25", user_id, token);
@@ -38,12 +45,14 @@ export default class SelectCity extends Component {
       })
       .then(res => {
         const cities = res.data.cities.sort(function(a, b) {
+
           var textA = a.name.toUpperCase();
           var textB = b.name.toUpperCase();
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
+     
         this.setState({ cities });
-        console.log( "CITY",cities);
+        console.log("CITY", cities);
       });
   }
   setModalVisible(visible) {
@@ -53,8 +62,10 @@ export default class SelectCity extends Component {
     this.setState({ searchTxt });
   };
   handleCity = item => {
-    this.props.navigation.navigate("SelectDistrict", 
-    { city: item ,vedom:this.vedom});
+    this.props.navigation.navigate("SelectDistrict", {
+      city: item,
+      vedom: this.vedom
+    });
   };
   render() {
     var data = this.state.cities;

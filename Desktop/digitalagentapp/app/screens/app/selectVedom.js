@@ -27,7 +27,7 @@ export default class SelectVedom extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.vedom}
-            onPress={() => this.chooseVedom("minfin")}
+            onPress={() => this.chooseVedom("kgd")}
           >
             <Image
               style={styles.vedomIcon}
@@ -37,7 +37,8 @@ export default class SelectVedom extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.vedom}
-            onPress={() => this.chooseVedom("mtszn")}
+            onPress={() => this.props.navigation.navigate("Mtszn",{vedom:"mtszn"})}
+          //  onPress={() => this.chooseVedom("mtszn")}
           >
             <Image
               style={styles.vedomIcon}
@@ -90,7 +91,8 @@ const styles = StyleSheet.create({
     margin: 14
   },
   vedomText: {
+    width:"85%",
     color: "white",
-    fontSize: Theme.fonts.sizes.p6
+    fontSize: Theme.fonts.sizes.p5
   }
 });

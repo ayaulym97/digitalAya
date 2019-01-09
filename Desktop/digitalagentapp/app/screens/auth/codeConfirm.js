@@ -38,8 +38,8 @@ export default class CodeConfirm extends Component {
       .then(response => {
         deviceStorage.saveKey("id_token", response.data.token);
         console.log("ID_TOKEN", response.data.token);
-        this.props.navigation.navigate("CreatePin");
-        // this.props.navigation.navigate('App');
+        // this.props.navigation.navigate("CreatePin");
+        this.props.navigation.navigate("App");
       })
       .catch(error => {
         console.log(error);
@@ -119,7 +119,7 @@ export default class CodeConfirm extends Component {
                   styles.error,
                   { borderColor: Theme.colors.yellow, borderWidth: 1 }
                 ]}
-                onPress={() => this.setState({ error: false,code:0 })}
+                onPress={() => this.setState({ error: false, code: 0 })}
               >
                 <Text
                   style={[styles.sendBtnTxt, { color: Theme.colors.yellow }]}
@@ -218,6 +218,5 @@ const styles = StyleSheet.create({
     color: Theme.colors.yellow,
     fontSize: Theme.fonts.sizes.p6,
     textAlign: "center"
-  },
- 
+  }
 });

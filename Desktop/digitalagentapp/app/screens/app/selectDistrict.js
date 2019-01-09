@@ -12,9 +12,7 @@ export default class SelectDistrict extends Component {
   vedom = this.props.navigation.getParam("vedom", "default");
   async componentDidMount() {
     const token = await AsyncStorage.getItem("id_token");
-    console.log("TOKEN", token);
-    console.log("City", this.city);
-
+    console.log("City", this.city, "TOKEN", token);
     try {
       axios
         .get(base_url + `/api/region/bycity/` + this.city, {
@@ -22,12 +20,28 @@ export default class SelectDistrict extends Component {
         })
         .then(res => {
           console.log("regions", res.data.regions);
-          const regions = res.data.regions.sort(function(a, b) {
-            var textA = a.name.toUpperCase();
-            var textB = b.name.toUpperCase();
-            return textA < textB ? -1 : textA > textB ? 1 : 0;
-          });
-          this.setState({ regions });
+          if (this.vedom === "con") {
+            const regions = res.data.regions.sort(function(a, b) {
+              var textA = a.name.toUpperCase();
+              var textB = b.name.toUpperCase();
+
+              return textA < textB ? -1 : textA > textB ? 1 : 0;
+            });
+
+            this.setState({ regions });
+          } else {
+            const obj = res.data.regions.filter(
+              item => item.name !== "Специализированный"
+            );
+            const regions = obj.sort(function(a, b) {
+              var textA = a.name.toUpperCase();
+              var textB = b.name.toUpperCase();
+
+              return textA < textB ? -1 : textA > textB ? 1 : 0;
+            });
+            console.log("ERTY", obj);
+            this.setState({ regions });
+          }
         });
     } catch (error) {
       console.log("err", error);
@@ -55,7 +69,7 @@ export default class SelectDistrict extends Component {
         return i.name.toLowerCase().match(searchString);
       });
     }
-    console.log("vedomect", this.vedom);
+    console.log("vedom", this.vedom);
     return (
       <SelectPage
         searchTxt={searchTxt}

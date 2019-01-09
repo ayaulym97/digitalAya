@@ -30,7 +30,7 @@ export default class SelectServiceCenter extends Component {
           api: `/api/con/byregion/`
         });
         break;
-      case "minfin":
+      case "kgd":
         this.setState({
           api: `/api/kgd/`
         });
@@ -54,12 +54,23 @@ export default class SelectServiceCenter extends Component {
         })
         .then(res => {
           console.log("CON", res);
+
           if (this.vedom === "con") {
-            this.setState({ cons: res.data.cons });
+            const cons = res.data.cons.sort(function(a, b) {
+              var textA = a.name.toUpperCase();
+              var textB = b.name.toUpperCase();
+              return textA < textB ? -1 : textA > textB ? 1 : 0;
+            });
+
+            this.setState({ cons: cons });
           } else {
-            this.setState({ cons: res.data });
+            const cons = res.data.sort(function(a, b) {
+              var textA = a.name.toUpperCase();
+              var textB = b.name.toUpperCase();
+              return textA < textB ? -1 : textA > textB ? 1 : 0;
+            });
+            this.setState({ cons: cons });
           }
-        
         });
     } catch (error) {
       console.log("err", error);
@@ -73,10 +84,13 @@ export default class SelectServiceCenter extends Component {
   };
   handleServiceCenter = item => {
     console.log("CON_ID", item._id);
-    this.props.navigation.navigate("Estimate", { cons: item,vedom:this.vedom });
+    this.props.navigation.navigate("Estimate", {
+      cons: item,
+      vedom: this.vedom
+    });
   };
   render() {
-    console.log("VEDOMSONA",this.vedom)
+    console.log("VEDOMS", this.vedom);
     var data = this.state.cons;
     var searchString = this.state.searchTxt.trim().toLowerCase();
     if (searchString.length > 0) {
@@ -104,7 +118,14 @@ export default class SelectServiceCenter extends Component {
                   style={styles.cityContainer}
                   onPress={() => this.handleServiceCenter(item)}
                 >
-                  <Text style={styles.cityTxt}>{item.name}</Text>
+                  <View style={styles.content}>
+                    <Text style={styles.cityTxt}>{item.name}</Text>
+
+                    {this.vedom === "con" ? null : (
+                      <Text style={styles.addressTxt}>{item.address}</Text>
+                    )}
+                  </View>
+
                   <Icon
                     name={"ios-arrow-forward"}
                     size={24}
@@ -137,8 +158,17 @@ const styles = StyleSheet.create({
     borderBottomColor: Theme.colors.gray42
   },
   cityTxt: {
-    width: "95%",
     color: "white",
+    fontWeight: "500",
     fontSize: Theme.fonts.sizes.p6
+  },
+  addressTxt: {
+    paddingTop:10,
+    color: "#727272",
+    fontSize: Theme.fonts.sizes.p4
+  },
+
+  content: {
+    width: "95%"
   }
 });

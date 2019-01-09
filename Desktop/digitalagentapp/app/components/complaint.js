@@ -16,7 +16,6 @@ const Complaint = ({
       {selectedStar === 5 ? (
         <View
           style={{
-            // height:300,
             flexDirection: "row"
           }}
         >

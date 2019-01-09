@@ -4,13 +4,11 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-  FlatList,
-  StyleSheet
+  FlatList
 } from "react-native";
 import { Theme } from "../uitls/theme";
 import { StylePanel } from "../uitls/styles";
 import { Footer, SearchInput } from "../components";
-import { scaleModerate } from "../uitls";
 const SelectPage = ({
   data,
   header,
@@ -37,12 +35,6 @@ const SelectPage = ({
                 >
                   <Text style={StylePanel.cityTxt}>{item.name}</Text>
                 </TouchableOpacity>
-                {
-                  
-                  <View>
-                    <Text>FFFFFF</Text>
-                  </View>
-                }
               </React.Fragment>
             )}
           />
@@ -55,36 +47,4 @@ const SelectPage = ({
   );
 };
 
-const styles = StyleSheet.create({
-  modalView: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: Theme.colors.checkboxGray,
-    marginHorizontal: "4%",
-    marginVertical: "29%"
-  },
-  attenTxt: {
-    marginTop: scaleModerate(30),
-    fontSize: Theme.fonts.sizes.h1,
-    color: Theme.colors.yellow,
-    textAlign: "center",
-    fontWeight: "100"
-  },
-  contentTxt: {
-    marginTop: scaleModerate(16),
-    width: "95%",
-    fontSize: Theme.fonts.sizes.p6,
-    color: "white",
-    textAlign: "center"
-  },
-  crossBtn: {
-    position: "absolute",
-    right: 20
-  },
-  phoneBtnTxt: {
-    marginTop: scaleModerate(5),
-    color: Theme.colors.yellow,
-    fontSize: Theme.fonts.sizes.p6
-  }
-});
 export default SelectPage;

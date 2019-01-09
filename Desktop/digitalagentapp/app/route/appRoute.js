@@ -11,7 +11,8 @@ import {
   WannaBeContacted,
   AfterEightPm,
   Called,
-  Uncalled
+  Uncalled,
+  Mtszn
 } from "../screens/app";
 import { Image, Platform } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -30,6 +31,9 @@ const app = createStackNavigator(
       navigationOptions: {
         header: null
       }
+    },
+    Mtszn: {
+      screen: Mtszn
     },
     SelectCity: {
       screen: SelectCity

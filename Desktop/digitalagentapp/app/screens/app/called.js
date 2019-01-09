@@ -6,7 +6,7 @@ import { Footer, Button, IntroPage } from "../../components";
 import { scale } from "../../uitls";
 export default class Called extends Component {
   handlePress = () => {
-    this.props.navigation.navigate("SelectCity");
+    this.props.navigation.navigate("SelectVedom");
   };
   render() {
     return (
@@ -34,7 +34,7 @@ export default class Called extends Component {
 const styles = StyleSheet.create({
   footerStyle: {
     height: 45,
-    flexDirection: 'row',
+    flexDirection: "row",
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   txtView: {
     flex: 2,
     paddingTop: 50,
-    paddingHorizontal: "5%",
+    width: "90%",
+    marginHorizontal: "5%",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -59,7 +60,8 @@ const styles = StyleSheet.create({
     marginTop: 95
   },
   title: {
-    fontSize: 28,
+    fontSize: Theme.fonts.sizes.h3,
+
     color: Theme.colors.yellow,
     textAlign: "center",
     fontWeight: "100"

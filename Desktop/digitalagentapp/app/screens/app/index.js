@@ -9,7 +9,9 @@ import WannaBeContacted from "./wannaBeContacted";
 import AfterEightPm from "./afterEigtPm";
 import SelectVedom from "./selectVedom";
 import PinPassword from "./pinPassword"
+import Mtszn from "./Mtszn"
 export {
+  Mtszn,
   SelectCity,
   SelectDistrict,
   SelectServiceCenter,

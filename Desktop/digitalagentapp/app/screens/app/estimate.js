@@ -197,7 +197,7 @@ export default class Estimate extends Component {
   };
 
   render() {
-    console.log("VVVV", this.vedom);
+    console.log("VVVV", this.vedom,this.cons);
     return (
       <View style={styles.container}>
         <ScrollView>

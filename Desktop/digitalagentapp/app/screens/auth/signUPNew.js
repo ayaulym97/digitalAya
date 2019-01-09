@@ -16,6 +16,7 @@ import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
 import { base_url } from "../../config/const";
 import Checkbox from "../../components/Checkbox";
+import { scale } from "../../uitls";
 export default class SignUpNew extends PureComponent {
   state = {
     phoneNumber: "",
@@ -224,11 +225,12 @@ const styles = StyleSheet.create({
   },
   ofertaWhiteTxt: {
     color: "white",
-    fontSize: 14
+   // width:"80%",
+   fontSize: Theme.fonts.sizes.p4
   },
   ofertaGoldTxt: {
     color: Theme.colors.yellow,
-    fontSize: 14,
+    fontSize:Theme.fonts.sizes.p4,
     textAlign: "center"
   },
   easy: {
@@ -244,7 +246,7 @@ const styles = StyleSheet.create({
   },
   errorTxt: {
     color: "red",
-    fontSize: 12,
+    fontSize: Theme.fonts.sizes.p3,
     marginTop: 38,
     width: "80%",
     marginHorizontal: "10%"

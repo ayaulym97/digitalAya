@@ -14,7 +14,7 @@ import { base_url } from "../../config/const";
 import { StylePanel } from "../../uitls/styles";
 import { SelectPage } from "../../components";
 import { Theme } from "../../uitls/theme";
-export default class SelectCity extends Component {
+export default class Mtszn extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,18 +29,18 @@ export default class SelectCity extends Component {
     const token = await AsyncStorage.getItem("id_token");
     console.log("TOKEN_25", user_id, token);
     axios
-      .get(base_url + `/api/city/all`, {
+      .get(base_url + `/api/mtszn`, {
         headers: { Authorization: token }
       })
       .then(res => {
-        const cities = res.data.cities.sort(function(a, b) {
+        const cities = res.data.sort(function(a, b) {
           var textA = a.name.toUpperCase();
           var textB = b.name.toUpperCase();
           return textA < textB ? -1 : textA > textB ? 1 : 0;
         });
 
         this.setState({ cities });
-        console.log("CITY", cities);
+        console.log("CITY", res.data);
       });
   }
   setModalVisible(visible) {
@@ -50,8 +50,8 @@ export default class SelectCity extends Component {
     this.setState({ searchTxt });
   };
   handleCity = item => {
-    this.props.navigation.navigate("SelectDistrict", {
-      city: item,
+    this.props.navigation.navigate("Estimate", {
+      cons: item,
       vedom: this.vedom
     });
   };
@@ -68,9 +68,9 @@ export default class SelectCity extends Component {
         <SelectPage
           searchTxt={this.state.searchTxt}
           onChangeSearchTxt={searchTxt => this.handleSearchBar(searchTxt)}
-          header="Выберите регион"
+          header="Выберите учреждение"
           data={data}
-          onPressCity={item => this.handleCity(item._id)}
+          onPressCity={item => this.handleCity(item)}
         />
         <Modal
           onRequestClose={() => this.setState({ modalVisible: false })}

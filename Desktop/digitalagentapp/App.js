@@ -9,6 +9,7 @@ export default class App extends PureComponent {
     };
   }
   async componentDidMount() {
+
     try {
       const item = await AsyncStorage.getItem("onboarding");
       console.log("####", item);

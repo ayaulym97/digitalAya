@@ -15,6 +15,7 @@ export default class SelectVedom extends Component {
         <LogoView logostyle={styles.logoView} />
         <View style={styles.mainView}>
           <Text style={styles.header}>Выберите ведомство</Text>
+      
           <TouchableOpacity
             style={styles.vedom}
             onPress={() => this.chooseVedom("con")}

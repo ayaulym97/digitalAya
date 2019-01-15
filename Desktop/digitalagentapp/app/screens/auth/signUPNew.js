@@ -23,7 +23,7 @@ export default class SignUpNew extends PureComponent {
     userId: "",
     error: false,
     focus: false,
-    agree: false
+    agree: true
   };
   handleUserId = iin => {
     this.setState({ iin });
@@ -35,10 +35,9 @@ export default class SignUpNew extends PureComponent {
   registerUser() {
     const { iin, phoneNumber } = this.state;
     console.log("IIN", iin, phoneNumber);
-    if (iin === "970612400788" && phoneNumber === "+7 (775) 918-42-77") {
+    if (phoneNumber === "+7 (775) 918-42-77") {
       axios
         .post(base_url + "/api/auth/signuptest", {
-          // iin: iin,
           phone: phoneNumber
         })
         .then(response => {
@@ -57,7 +56,6 @@ export default class SignUpNew extends PureComponent {
     } else {
       axios
         .post(base_url + "/api/auth/signup", {
-          // iin: iin,
           phone: phoneNumber
         })
         .then(response => {
@@ -133,7 +131,7 @@ export default class SignUpNew extends PureComponent {
                   />
                 </TouchableOpacity>
                 <Text style={styles.ofertaWhiteTxt}>
-                  Входя в приложение, вы
+                  Входя в приложение,вы
                 </Text>
               </View>
 
@@ -157,7 +155,7 @@ export default class SignUpNew extends PureComponent {
                 name={this.state.agree ? "md-checkbox" : "md-square-outline"}
                 size={22}
                 color={this.state.agree ? "#67ac5b" : Theme.colors.gray63}
-                style={{ marginHorizontal: 10 }}
+                style={{ marginRight: 10 }}
               />
               <Text style={styles.ofertaWhiteTxt}>
                 Даю согласие на получение рекламы в соответствии с Офертой.
@@ -165,7 +163,7 @@ export default class SignUpNew extends PureComponent {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        <Footer footerStyle={[StylePanel.footerStyle, StylePanel.absBottom]} />
+        <Footer footerStyle={styles.footerStyle} />
       </View>
     );
   }
@@ -173,6 +171,14 @@ export default class SignUpNew extends PureComponent {
 const styles = StyleSheet.create({
   contentContainer: {
     paddingVertical: 20
+  },
+  footerStyle: {
+    height: 45,
+    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: '10%',
   },
   logoView: {
     flex: 1,
@@ -205,9 +211,9 @@ const styles = StyleSheet.create({
   },
   input: {
     color: "white",
-    width: "80%",
+    width: "84%",
     height: 48,
-    marginHorizontal: "10%",
+    marginHorizontal: "8%",
     paddingLeft: 10,
     marginTop: 8,
     marginBottom: 24,
@@ -215,23 +221,25 @@ const styles = StyleSheet.create({
     borderColor: Theme.colors.gray74
   },
   ofertaView: {
-    alignItems: "center"
+    alignItems: "center",
+    width: '84%',
+    marginHorizontal: '8%',
   },
   ofertaUp: {
     marginTop: 32,
     flexDirection: "row",
     justifyContent: "center",
-    alignContent: "center"
+    alignContent: "center",
   },
   ofertaWhiteTxt: {
+    marginLeft:5,
     color: "white",
-   // width:"80%",
    fontSize: Theme.fonts.sizes.p4
   },
   ofertaGoldTxt: {
     color: Theme.colors.yellow,
     fontSize:Theme.fonts.sizes.p4,
-    textAlign: "center"
+    // textAlign: "center"
   },
   easy: {
     marginTop: 16,
@@ -241,8 +249,8 @@ const styles = StyleSheet.create({
   checkboxContainer: {
     flexDirection: "row",
     marginTop: 32,
-    width: "86%",
-    marginHorizontal: "7%"
+    width: "84%",
+    marginHorizontal: "8%"
   },
   errorTxt: {
     color: "red",

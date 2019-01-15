@@ -22,7 +22,6 @@ export const StylePanel = {
   footerStyle:{
     flex: 1,
     flexDirection: 'row',
-
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
@@ -94,8 +93,8 @@ export const StylePanel = {
   },
   defaultBtn: {
     height: 45,
-    width: '80%',
-    marginHorizontal: '10%',
+    width: '84%',
+    marginHorizontal: '8%',
     alignItems: 'center',
     justifyContent: 'center',
   },

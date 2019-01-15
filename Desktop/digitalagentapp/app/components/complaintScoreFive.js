@@ -2,12 +2,9 @@ import React from "react";
 import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Theme } from "../uitls/theme";
-const ComplaintScoreFive = ({ title, img }) => {
+const ComplaintScoreFive = ({ title, img,checked }) => {
   return (
-    <View style={{ flex: 1, 
-    alignItems: "center", 
-  //  justifyContent: "center" 
-    }}>
+    <View style={{ flex: 1, alignItems: "center" }}>
       <TouchableOpacity style={styles.scoreFiveBox}>
         <Image resizeMode={"contain"} style={styles.image} source={img} />
       </TouchableOpacity>
@@ -23,7 +20,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-      textAlign:'center',
+    textAlign: "center",
     marginTop: 6,
     fontSize: Theme.fonts.sizes.p1,
     color: "white"

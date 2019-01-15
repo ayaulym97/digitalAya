@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  Alert,
   AsyncStorage,
   ActivityIndicator,
   ScrollView,
@@ -15,7 +16,6 @@ import axios from "axios";
 import ImagePicker from "react-native-image-picker";
 import Icon from "react-native-vector-icons/Ionicons";
 import StarRating from "react-native-star-rating";
-// import CustomIcon from "../../components/CustomIcon"
 import { base_url } from "../../config/const";
 import { Theme } from "../../uitls/theme";
 import { Button, Complaint, Footer } from "../../components";
@@ -30,15 +30,14 @@ const options = {
 };
 export default class Estimate extends Component {
   state = {
-    modalVisible: false,
     selectedStar: 0,
-    imgUrl: "",
     staffIncompetence: false,
     waitTime: false,
     terribleWaitRoom: false,
     invalid: false,
     complaint: [],
-    comment: ""
+    comment: "",
+    height: 0
   };
 
   cons = this.props.navigation.getParam("cons", "default");
@@ -50,7 +49,11 @@ export default class Estimate extends Component {
     });
   };
   handleSendBtn = () => {
-    this.postReview();
+    if (this.state.selectedStar === 0) {
+      Alert.alert("Оцените учреждения по 5 шкaле перед отпрaвкой жaлобы");
+    } else {
+      this.postReview();
+    }
   };
   async postReview() {
     const { selectedStar, imgUrl, comment, complaint } = this.state;
@@ -102,109 +105,173 @@ export default class Estimate extends Component {
   //takePhoto
   chooseImage = () => {
     ImagePicker.showImagePicker(options, response => {
-      console.log("Response = ", response);
+      this.setState({
+        avatarSource: response.uri
+      });
+      console.log("Response = ", response, new Date());
 
+      console.log(this.state.avatarSource, 110);
       if (response.didCancel) {
         console.log("User cancelled image picker");
       } else if (response.error) {
         console.log("ImagePicker Error: ", response.error);
       } else {
-        let source = { uri: response.uri };
         let formData = new FormData();
         formData.append("file", {
-          uri: source,
+          uri: response.uri,
           name: "image.png",
           type: "image/jpeg"
         });
-
         axios
           .post(base_url + "/upload/image", formData)
           .then(response => {
             this.setState({
               imgUrl: response.data.data.url
             });
-            console.log(this.state.imgUrl, 173);
+
+            console.log(this.state.imgUrl, new Date());
           })
           .catch(err => {
-            console.log(err.response, 165);
+            console.log(err.response, 136);
           });
       }
     });
   };
   ///checkbox
 
-  checkBoxPress = (type, value) => {
-    switch (value) {
-      case "Некомпетентность персонала":
-        this.setState({
-          staffIncompetence: !this.state.staffIncompetence
-        });
-        //P.S здесь должно было === но так как когда нажимаешь он еще false
-        if (this.state.staffIncompetence != true) {
-          this.state.complaint.push(value);
-        } else {
-          this.state.complaint.splice(
-            this.state.complaint.findIndex(e => e === value),
-            1
-          );
-        }
-        break;
+  checkBoxPress = (type, value, reason) => {
+    if (reason === true) {
+      switch (value) {
+        case "Некомпетентность персонала":
+          this.setState({
+            staffIncompetence: !this.state.staffIncompetence
+          });
+          //P.S здесь должно было === но так как когда нажимаешь он еще false
+          if (this.state.staffIncompetence != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
+          break;
 
-      case "Время ожидания в очереди":
-        this.setState({
-          waitTime: !this.state.waitTime
-        });
-        if (this.state.waitTime != true) {
-          this.state.complaint.push(value);
-        } else {
-          this.state.complaint.splice(
-            this.state.complaint.findIndex(e => e === value),
-            1
-          );
-        }
-        break;
-      case "Ужасные условия в зале ожидания":
-        this.setState({
-          terribleWaitRoom: !this.state.terribleWaitRoom
-        });
-        if (this.state.terribleWaitRoom != true) {
-          this.state.complaint.push(value);
-        } else {
-          this.state.complaint.splice(
-            this.state.complaint.findIndex(e => e === value),
-            1
-          );
-        }
+        case "Время ожидания в очереди":
+          this.setState({
+            waitTime: !this.state.waitTime
+          });
+          if (this.state.waitTime != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
+          break;
+        case "Ужасные условия в зале ожидания":
+          this.setState({
+            terribleWaitRoom: !this.state.terribleWaitRoom
+          });
+          if (this.state.terribleWaitRoom != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
 
-        break;
-      case "Отсутствие условий для инвалидов":
-        this.setState({
-          invalid: !this.state.invalid
-        });
-        if (this.state.invalid != true) {
-          this.state.complaint.push(value);
-        } else {
-          this.state.complaint.splice(
-            this.state.complaint.findIndex(e => e === value),
-            1
-          );
-        }
-        break;
-      default:
-        break;
+          break;
+        case "Отсутствие условий для инвалидов":
+          this.setState({
+            invalid: !this.state.invalid
+          });
+          if (this.state.invalid != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
+          break;
+        default:
+          break;
+      }
+    } else {
+      switch (value) {
+        case "Некомпетентность персонала":
+          this.setState({
+            staffIncompetence: !this.state.staffIncompetence
+          });
+          //P.S здесь должно было === но так как когда нажимаешь он еще false
+          if (this.state.staffIncompetence != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
+          break;
+
+        case "Время ожидания в очереди":
+          this.setState({
+            waitTime: !this.state.waitTime
+          });
+          if (this.state.waitTime != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
+          break;
+        case "Ужасные условия в зале ожидания":
+          this.setState({
+            terribleWaitRoom: !this.state.terribleWaitRoom
+          });
+          if (this.state.terribleWaitRoom != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
+
+          break;
+        case "Отсутствие условий для инвалидов":
+          this.setState({
+            invalid: !this.state.invalid
+          });
+          if (this.state.invalid != true) {
+            this.state.complaint.push(value);
+          } else {
+            this.state.complaint.splice(
+              this.state.complaint.findIndex(e => e === value),
+              1
+            );
+          }
+          break;
+        default:
+          break;
+      }
     }
     console.log("complaint", this.state.complaint);
   };
 
   render() {
-    console.log("VVVV", this.vedom,this.cons);
     return (
       <View style={styles.container}>
         <ScrollView>
           <KeyboardAvoidingView style={{ flex: 1 }} behavior="position">
             <View style={styles.headerView}>
-              <Text style={styles.header}>Оцените ЦОН</Text>
-     
+              <Text style={styles.header}>Оцените учреждение</Text>
+
               <Text style={styles.subHeader}>{this.cons.name}</Text>
               <StarRating
                 maxStars={5}
@@ -221,11 +288,10 @@ export default class Estimate extends Component {
               {this.state.selectedStar != 0 ? (
                 <React.Fragment>
                   <React.Fragment>
-                    {this.state.selectedStar === 5 ? (
-                      <Text style={styles.complaintHeader}>
-                        Что понравилось?
-                      </Text>
-                    ) : (
+                    {this.state.selectedStar === 5 ? null : (
+                      // <Text style={styles.complaintHeader}>
+                      //   Что понравилось?
+                      // </Text>
                       <Text style={styles.complaintHeader}>
                         {this.state.selectedStar < 4
                           ? "Что именно разочаровало?"
@@ -233,48 +299,60 @@ export default class Estimate extends Component {
                       </Text>
                     )}
                   </React.Fragment>
-
-                  <Complaint
-                    selectedStar={this.state.selectedStar}
-                    staffIncompetence={this.state.staffIncompetence}
-                    waitTime={this.state.waitTime}
-                    terribleWaitRoom={this.state.terribleWaitRoom}
-                    invalid={this.state.invalid}
-                    checkBoxPress={(type, value) =>
-                      this.checkBoxPress(type, value)
-                    }
-                  />
+                  {this.state.selectedStar === 5 ? null : (
+                    <Complaint
+                      selectedStar={this.state.selectedStar}
+                      staffIncompetence={this.state.staffIncompetence}
+                      waitTime={this.state.waitTime}
+                      terribleWaitRoom={this.state.terribleWaitRoom}
+                      invalid={this.state.invalid}
+                      checkBoxPress={(type, value) =>
+                        this.checkBoxPress(type, value, reason)
+                      }
+                    />
+                  )}
                 </React.Fragment>
               ) : null}
               <Text style={styles.commentTxt}>Комментарий</Text>
-              <View style={styles.commentContainer}>
-                <TextInput
-                  style={styles.commentInput}
-                  multiline={true}
-                  placeholder={"Ваше мнение"}
-                  placeholderTextColor={Theme.colors.gray63}
-                  onChangeText={comment => this.setState({ comment })}
-                  value={this.state.comment}
-                />
-              </View>
+
+              <TextInput
+                multiline={true}
+                placeholder={"Ваше мнение"}
+                placeholderTextColor={Theme.colors.gray63}
+                onChangeText={comment => this.setState({ comment })}
+                value={this.state.comment}
+                onContentSizeChange={event => {
+                  this.setState({
+                    height: event.nativeEvent.contentSize.height
+                  });
+                }}
+                style={[
+                  styles.commentInput,
+                  { height: Math.max(80, this.state.height) }
+                ]}
+              />
 
               <TouchableOpacity
                 style={styles.takePhoto}
                 onPress={() => this.chooseImage()}
               >
-                {this.state.imgUrl != "" ? (
+                {this.state.imgUrl ? (
                   <React.Fragment>
-                    {this.state.imgUrl != "" ? (
+                    {this.state.avatarSource ? (
                       <Image
-                        source={{ uri: this.state.imgUrl }}
-                        style={{ flex: 1 }}
+                        source={{ uri: this.state.avatarSource }}
+                        style={{
+                          width: 40,
+                          height: 40
+                        }}
                         resizeMode="contain"
                       />
                     ) : (
-                      <ActivityIndicator
-                        size="large"
-                        color={Theme.colors.yellow}
-                      />
+                      <Text>FFFFFF</Text>
+                      // <ActivityIndicator
+                      //   size="large"
+                      //   color={Theme.colors.yellow}
+                      // />
                     )}
                   </React.Fragment>
                 ) : (
@@ -290,7 +368,6 @@ export default class Estimate extends Component {
                 <Text style={styles.takePhotoTxt}>Прикрепите фотографию</Text>
               </TouchableOpacity>
               <Button
-                disable={this.state.selectedStar === 0}
                 text={"Отправить"}
                 sendBtn={StylePanel.sendBtn}
                 onPress={() => this.handleSendBtn()}
@@ -298,7 +375,7 @@ export default class Estimate extends Component {
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
-        <Footer footerStyle={[StylePanel.footerStyle]} />
+        <Footer footerStyle={[styles.footerStyle]} />
       </View>
     );
   }
@@ -338,44 +415,32 @@ const styles = StyleSheet.create({
     marginHorizontal: "4%"
   },
   commentTxt: {
-     width: "90%",
+    width: "90%",
     marginHorizontal: "4%",
     color: Theme.colors.gray63,
     fontSize: Theme.fonts.sizes.p6,
     marginTop: 16,
-    marginBottom:10
+    marginBottom: 10
   },
-  takePhotoTxt:{
-    marginVertical:24,
+  takePhotoTxt: {
+    marginVertical: 24,
     color: "white",
     fontSize: Theme.fonts.sizes.p6
   },
   commentInput: {
-    flex: 1,
     color: "white",
     marginBottom: 10,
-    fontSize: Theme.fonts.sizes.p6
-  },
-  commentContainer: {
-    height: 80,
+    fontSize: Theme.fonts.sizes.p6,
     backgroundColor: Theme.colors.bcground,
     paddingLeft: 10,
     marginHorizontal: "4%",
     borderColor: Theme.colors.gray63,
-    borderWidth: 1,
-    marginBottom: 5
+    borderWidth: 1
   },
   takePhoto: {
-    // width: 50,
-    // height: 50,
-    // marginLeft: "4%",
     marginHorizontal: "4%",
     flexDirection: "row",
-    // justifyContent: "center",
     alignItems: "center"
-    // borderColor: Theme.colors.gray63,
-    // borderWidth: 1,
-    // borderRadius: 5
   },
   complaintHeader: {
     textAlign: "center",
@@ -383,6 +448,14 @@ const styles = StyleSheet.create({
     fontSize: Theme.fonts.sizes.h6,
     fontWeight: "100",
     marginTop: 24,
-    marginBottom:14
+    marginBottom: 14
+  },
+  footerStyle: {
+    height: 45,
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: "10%"
   }
 });

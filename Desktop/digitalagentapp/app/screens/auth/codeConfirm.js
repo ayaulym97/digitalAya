@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 10,
     color: Theme.colors.yellow,
-    fontSize: Theme.fonts.sizes.p6
+    fontSize: Theme.fonts.sizes.p4
   },
   error: {
     width: "80%",

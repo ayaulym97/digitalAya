@@ -15,33 +15,36 @@ export default class SelectDistrict extends Component {
     console.log("City", this.city, "TOKEN", token);
     try {
       axios
-        .get(base_url + `/api/region/bycity/` + this.city, {
+        .get(base_url + `/api/region/bycity/`+this.vedom+"/" + this.city, {
           headers: { Authorization: token }
         })
         .then(res => {
-          console.log("regions", res.data.regions);
-          if (this.vedom === "con") {
-            const regions = res.data.regions.sort(function(a, b) {
-              var textA = a.name.toUpperCase();
-              var textB = b.name.toUpperCase();
 
-              return textA < textB ? -1 : textA > textB ? 1 : 0;
-            });
+          this.setState({ regions:res.data.regions });
+          console.log("regions", this.state.regions);
+          // if (this.vedom === "con") {
+          //   const regions = res.data.regions.sort(function(a, b) {
+          //     var textA = a.name.toUpperCase();
+          //     var textB = b.name.toUpperCase();
 
-            this.setState({ regions });
-          } else {
-            const obj = res.data.regions.filter(
-              item => item.name !== "Специализированный"
-            );
-            const regions = obj.sort(function(a, b) {
-              var textA = a.name.toUpperCase();
-              var textB = b.name.toUpperCase();
+          //     return textA < textB ? -1 : textA > textB ? 1 : 0;
+          //   });
 
-              return textA < textB ? -1 : textA > textB ? 1 : 0;
-            });
-            console.log("ERTY", obj);
-            this.setState({ regions });
-          }
+          //   this.setState({ regions });
+          // } else {
+          //   const obj = res.data.regions.filter(
+          //     item => item.name !== "Специализированный"
+          //   );
+          //   const regions = obj.sort(function(a, b) {
+          //     var textA = a.name.toUpperCase();
+          //     var textB = b.name.toUpperCase();
+
+          //     return textA < textB ? -1 : textA > textB ? 1 : 0;
+          //   });
+           // console.log("ERTY", obj);
+       //     this.setState({ regions:res.data.regions });
+         // }
+
         });
     } catch (error) {
       console.log("err", error);

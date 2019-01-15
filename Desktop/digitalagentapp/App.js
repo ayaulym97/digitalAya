@@ -5,11 +5,11 @@ export default class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-     onboarding: "false"
+      onboarding: "false"
     };
   }
   async componentDidMount() {
-
+    await AsyncStorage.removeItem("id_token");
     try {
       const item = await AsyncStorage.getItem("onboarding");
       console.log("####", item);
@@ -29,3 +29,4 @@ export default class App extends PureComponent {
     return <Layout />;
   }
 }
+//original

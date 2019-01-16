@@ -14,7 +14,7 @@ import {
   Uncalled,
   Mtszn
 } from "../screens/app";
-import { Image, Platform } from "react-native";
+import { Image,View, Platform } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Theme } from "../uitls/theme";
 
@@ -79,6 +79,7 @@ const app = createStackNavigator(
         backgroundColor: Theme.colors.gray26,
         borderBottomWidth: 0
       },
+
       headerBackImage: (
         <Icon
           name={"ios-arrow-round-back"}
@@ -92,10 +93,15 @@ const app = createStackNavigator(
       headerTitle: (
         <Image
           resizeMode={"contain"}
-          style={{ width: "0.186%", height: 20, flex: 1 }}
+          style={{
+            width: "0.186%",
+            height: 20,
+            flex: 1,
+          }}
           source={require("../assets/logo.png")}
         />
-      )
+      ),
+      headerRight: <View style={{ height: 50, width: 50 }} />
     }
   }
 );

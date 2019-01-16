@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Animated, TextInput, Text, StyleSheet } from "react-native";
+import { View, Animated, Platform,TextInput, Text, StyleSheet } from "react-native";
 import { LogoView } from "../../components";
 import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
@@ -29,6 +29,7 @@ export default class CreatePin extends Component {
   };
 
   render() {
+    const {animatedInputIndex,pinViewAnim} = this.state
     return (
       <View style={StylePanel.container}>
         <LogoView logostyle={styles.logoView} />
@@ -39,8 +40,8 @@ export default class CreatePin extends Component {
             bgOpacity={0.1}
             pinLength={4}
             activeBgColor={"#333"}
-            animatedInputIndex={this.state.animatedInputIndex}
-            pinViewAnim={this.state.pinViewAnim}
+            animatedInputIndex={animatedInputIndex}
+            pinViewAnim={pinViewAnim}
             bgColor={"#333"}
             styles={[
               Styles.passwordInputView,
@@ -56,8 +57,8 @@ export default class CreatePin extends Component {
             onChangeText={animatedInputIndex =>
               this.handleCode(animatedInputIndex)
             }
-            value={this.state.animatedInputIndex}
-            placeholder="EEE"
+            value={animatedInputIndex}
+            placeholder="E"
             style={styles.input}
           />
           <Text style={styles.subtitle}>
@@ -71,11 +72,9 @@ export default class CreatePin extends Component {
 const styles = StyleSheet.create({
   downView: {
     flex: 5
-    // backgroundColor: "blue"
   },
   logoView: {
     flex: 1.5,
-    // backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -84,6 +83,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Theme.colors.yellow,
     fontSize: Theme.fonts.sizes.p6,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   subtitle: {
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: Theme.fonts.sizes.p6,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   input: {

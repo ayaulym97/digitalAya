@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation';
-import { SignUp,SignUpNew, CodeConfirm,CreatePin,RepeatPin } from '../screens/auth';
+import { SignUpNew, CodeConfirm,CreatePin,RepeatPin } from '../screens/auth';
 const auth = createStackNavigator(
   {
     SignUp: {

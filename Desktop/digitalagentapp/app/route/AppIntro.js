@@ -14,13 +14,14 @@ export default class AppIntro extends React.Component {
   swiper = null;
 
   swipe = () => {
+    const { index } = this.state;
     this.swiper.scrollBy(1);
-    if (this.state.index === 2) {
+    if (index === 2) {
       this.onBoard();
       this.props.navigation.navigate("ApplicationSwitch");
     } else {
       this.setState({
-        index: this.state.index + 1
+        index: index + 1
       });
     }
   };

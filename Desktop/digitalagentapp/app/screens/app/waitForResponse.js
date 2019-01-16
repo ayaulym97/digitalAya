@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   Easing,
+  Platform,
   StyleSheet,
   AsyncStorage
 } from "react-native";
@@ -68,6 +69,7 @@ export default class WaitForResponse extends React.Component {
       });
   }
   render() {
+    const {minute,seconds,fill,solved} = this.state
     return (
       <View style={StylePanel.container}>
         <View style={styles.upView}>
@@ -77,22 +79,22 @@ export default class WaitForResponse extends React.Component {
             size={250}
             width={18}
             rotation={0}
-            fill={this.state.fill}
+            fill={fill}
             tintColor={Theme.colors.yellow}
             backgroundColor={Theme.colors.gray26}
           >
             {() => (
               <Text style={styles.timeTxt}>
-                0{this.state.minute}:{this.state.seconds < 10 ? 0 : null}
-                {this.state.seconds}
+                0{minute}:{seconds < 10 ? 0 : null}
+                {seconds}
               </Text>
             )}
           </AnimatedCircularProgress>
         </View>
         <View style={styles.downView}>
-          {this.state.seconds === 0 && this.state.minute === 0 ? (
+          {seconds === 0 && minute === 0 ? (
             <View styles={styles.subDownView}>
-              {this.state.solved ? (
+              {solved ? (
                 <React.Fragment>
                   <Text style={styles.subDownTxt}>Решили вопрос?</Text>
                   <View
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
   timeTxt: {
     fontSize: 36,
     color: Theme.colors.yellow,
+    fontFamily:Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "200"
   },
   subDownTxt: {
@@ -188,6 +191,7 @@ const styles = StyleSheet.create({
     color: Theme.colors.yellow,
     width: "90%",
     marginHorizontal: "5%",
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   waitTxt: {

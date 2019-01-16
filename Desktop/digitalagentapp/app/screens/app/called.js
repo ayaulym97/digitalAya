@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, Platform, StyleSheet } from "react-native";
 import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
 import { Footer, Button, IntroPage } from "../../components";
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: Theme.fonts.sizes.h3,
-
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     color: Theme.colors.yellow,
     textAlign: "center",
     fontWeight: "100"

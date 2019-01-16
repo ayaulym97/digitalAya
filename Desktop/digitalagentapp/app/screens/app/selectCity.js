@@ -14,18 +14,12 @@ export default class SelectCity extends Component {
   async componentDidMount() {
     const user_id = await AsyncStorage.getItem("user_id");
     const token = await AsyncStorage.getItem("id_token");
-    console.log("TOKEN_25", user_id, token);
+    console.log("USER_ID", user_id, "TOKEN_ID", token);
     axios
       .get(base_url + `/api/city/all`, {
         headers: { Authorization: token }
       })
       .then(res => {
-        // const cities = res.data.cities.sort(function(a, b) {
-        //   var textA = a.name.toUpperCase();
-        //   var textB = b.name.toUpperCase();
-        //   return textA < textB ? -1 : textA > textB ? 1 : 0;
-        // });
-
         this.setState({ cities: res.data.cities });
         console.log("CITY", this.state.cities);
       });
@@ -49,6 +43,8 @@ export default class SelectCity extends Component {
     }
     return (
       <SelectPage
+        type={"city"}
+        vedom={this.vedom}
         searchTxt={this.state.searchTxt}
         onChangeSearchTxt={searchTxt => this.handleSearchBar(searchTxt)}
         header="Выберите регион"

@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import {
   View,
   Text,
+  Platform,
   TouchableOpacity,
   ScrollView,
   Image,
@@ -63,7 +64,7 @@ export default class SignUpNew extends PureComponent {
           console.log("_ID", response.data._id);
           this.props.navigation.navigate("CodeConfirm", {
             data: response.data._id,
-            phone: this.state.phoneNumber
+            phone: phoneNumber
           });
         })
         .catch(error => {
@@ -75,6 +76,7 @@ export default class SignUpNew extends PureComponent {
     }
   }
   render() {
+    const { error, focus, phoneNumber, agree } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView
@@ -91,7 +93,7 @@ export default class SignUpNew extends PureComponent {
           <View style={styles.downView}>
             <Text style={styles.header}>Регистрация</Text>
             <Text style={styles.errorTxt}>
-              {this.state.error ? "Вы ввели недопустимый номер" : " "}
+              {error ? "Вы ввели недопустимый номер" : " "}
             </Text>
             <TextInputMask
               underlineColorAndroid="transparent"
@@ -100,14 +102,14 @@ export default class SignUpNew extends PureComponent {
               maxLength={18}
               style={[
                 styles.input,
-                this.state.error
+                error
                   ? { borderColor: "red" }
-                  : this.state.focus
+                  : focus
                   ? { borderColor: Theme.colors.yellow }
                   : { borderColor: Theme.colors.gray42 }
               ]}
               placeholderTextColor={Theme.colors.gray74}
-              value={this.state.phoneNumber}
+              value={phoneNumber}
               onChangeText={phoneNumber => this.setState({ phoneNumber })}
               options={{ mask: "+9 (999) 999-99-99" }}
               placeholder="Телефон"
@@ -130,9 +132,7 @@ export default class SignUpNew extends PureComponent {
                     source={require("../../assets/lineTwo.png")}
                   />
                 </TouchableOpacity>
-                <Text style={styles.ofertaWhiteTxt}>
-                  Входя в приложение,вы
-                </Text>
+                <Text style={styles.ofertaWhiteTxt}>Входя в приложение,вы</Text>
               </View>
 
               <Text style={styles.ofertaWhiteTxt}>принимаете ее условия.</Text>
@@ -149,12 +149,12 @@ export default class SignUpNew extends PureComponent {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.checkboxContainer}
-              onPress={() => this.setState({ agree: !this.state.agree })}
+              onPress={() => this.setState({ agree: !agree })}
             >
               <Icon
-                name={this.state.agree ? "md-checkbox" : "md-square-outline"}
+                name={agree ? "md-checkbox" : "md-square-outline"}
                 size={22}
-                color={this.state.agree ? "#67ac5b" : Theme.colors.gray63}
+                color={agree ? "#67ac5b" : Theme.colors.gray63}
                 style={{ marginRight: 10 }}
               />
               <Text style={styles.ofertaWhiteTxt}>
@@ -174,11 +174,11 @@ const styles = StyleSheet.create({
   },
   footerStyle: {
     height: 45,
-    width: '80%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: '10%',
+    width: "80%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: "10%"
   },
   logoView: {
     flex: 1,
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     color: Theme.colors.yellow,
     fontSize: Theme.fonts.sizes.h1,
     paddingTop: 10,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   sendBtn: {
@@ -222,23 +223,23 @@ const styles = StyleSheet.create({
   },
   ofertaView: {
     alignItems: "center",
-    width: '84%',
-    marginHorizontal: '8%',
+    width: "84%",
+    marginHorizontal: "8%"
   },
   ofertaUp: {
     marginTop: 32,
     flexDirection: "row",
     justifyContent: "center",
-    alignContent: "center",
+    alignContent: "center"
   },
   ofertaWhiteTxt: {
-    marginLeft:5,
+    marginLeft: 5,
     color: "white",
-   fontSize: Theme.fonts.sizes.p4
+    fontSize: Theme.fonts.sizes.p4
   },
   ofertaGoldTxt: {
     color: Theme.colors.yellow,
-    fontSize:Theme.fonts.sizes.p4,
+    fontSize: Theme.fonts.sizes.p4
     // textAlign: "center"
   },
   easy: {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, Platform, StyleSheet } from "react-native";
 import { scale } from "../../uitls/index";
 import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
-import { Footer, Button, IntroPage } from "../../components";
+import { Footer, Button } from "../../components";
 export default class Uncalled extends Component {
   handlePress = () => {
     this.props.navigation.navigate("SelectCity");
@@ -30,7 +30,7 @@ export default class Uncalled extends Component {
           <Text style={styles.subTitle}>
             В Агентство Республики Казахстан по делам государственной службы и
             противодействию коррупции(
-            <Text style={{ color: '#FCB415' }}>АДГСПК РК</Text>) !
+            <Text style={{ color: "#FCB415" }}>АДГСПК РК</Text>) !
           </Text>
           <Text style={styles.subTitle}>
             Результат Вашей жалобы будет известен после проверки ЦОНа.
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     color: Theme.colors.yellow,
     textAlign: "center",
     marginBottom: 16,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   subTitle: {

@@ -5,6 +5,7 @@ import {
   Alert,
   TextInput,
   Text,
+  Platform,
   StyleSheet
 } from "react-native";
 import { LogoView } from "../../components";
@@ -41,6 +42,7 @@ export default class RepeatPin extends Component {
 
   render() {
     console.log("CODe", this.code);
+    const {animatedInputIndex,pinViewAnim} = this.state
     return (
       <View style={StylePanel.container}>
         <LogoView logostyle={styles.logoView} />
@@ -51,8 +53,8 @@ export default class RepeatPin extends Component {
             bgOpacity={0.1}
             pinLength={4}
             activeBgColor={"#333"}
-            animatedInputIndex={this.state.animatedInputIndex}
-            pinViewAnim={this.state.pinViewAnim}
+            animatedInputIndex={animatedInputIndex}
+            pinViewAnim={pinViewAnim}
             bgColor={"#333"}
             styles={[
               Styles.passwordInputView,
@@ -68,7 +70,7 @@ export default class RepeatPin extends Component {
             onChangeText={animatedInputIndex =>
               this.handleCode(animatedInputIndex)
             }
-            value={this.state.animatedInputIndex}
+            value={animatedInputIndex}
             placeholder="EEE"
             style={styles.input}
           />
@@ -80,11 +82,9 @@ export default class RepeatPin extends Component {
 const styles = StyleSheet.create({
   downView: {
     flex: 5
-    // backgroundColor: "blue"
   },
   logoView: {
     flex: 1.5,
-    // backgroundColor: "red",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: Theme.colors.yellow,
     fontSize: Theme.fonts.sizes.p6,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   subtitle: {
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: Theme.fonts.sizes.p6,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   input: {

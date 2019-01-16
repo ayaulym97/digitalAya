@@ -36,7 +36,7 @@ const options = {
   }
 };
 const ImagePicker = Platform.OS === "ios" ? RNImagePicker : ImagePickerAndroid;
-export default class Estimates extends Component {
+export default class Estimate extends Component {
   state = {
     selectedStar: 0,
     staffIncompetence: false,
@@ -91,15 +91,15 @@ export default class Estimates extends Component {
         });
 
         if (currentHour >= 8 && currentHour <= 20) {
-          if (selectedStar === 5) {
+          if (this.state.selectedStar === 5) {
             this.props.navigation.navigate("Called");
-          } else if (selectedStar === 4) {
+          } else if (this.state.selectedStar === 4) {
             this.props.navigation.navigate("WannaBeContacted", {
-              review: review_id
+              review: this.state.review_id
             });
           } else {
             this.props.navigation.navigate("WaitForResponse", {
-              review: review_id
+              review: this.state.review_id
             });
           }
         } else {
@@ -148,66 +148,70 @@ export default class Estimates extends Component {
   ///checkbox
 
   checkBoxPress = (type, value) => {
-    const {
-      staffIncompetence,
-      waitTime,
-      terribleWaitRoom,
-      invalid,
-      complaint
-    } = this.state;
     switch (value) {
       case "Некомпетентность персонала":
         this.setState({
-          staffIncompetence: !staffIncompetence
+          staffIncompetence: !this.state.staffIncompetence
         });
         //P.S здесь должно было === но так как когда нажимаешь он еще false
-        if (staffIncompetence != true) {
-          complaint.push(value);
+        if (this.state.staffIncompetence != true) {
+          this.state.complaint.push(value);
         } else {
-          complaint.splice(complaint.findIndex(e => e === value), 1);
+          this.state.complaint.splice(
+            this.state.complaint.findIndex(e => e === value),
+            1
+          );
         }
         break;
 
       case "Время ожидания в очереди":
         this.setState({
-          waitTime: !waitTime
+          waitTime: !this.state.waitTime
         });
-        if (waitTime != true) {
-          complaint.push(value);
+        if (this.state.waitTime != true) {
+          this.state.complaint.push(value);
         } else {
-          complaint.splice(complaint.findIndex(e => e === value), 1);
+          this.state.complaint.splice(
+            this.state.complaint.findIndex(e => e === value),
+            1
+          );
         }
         break;
       case "Ужасные условия в зале ожидания":
         this.setState({
-          terribleWaitRoom: !terribleWaitRoom
+          terribleWaitRoom: !this.state.terribleWaitRoom
         });
-        if (terribleWaitRoom != true) {
-          complaint.push(value);
+        if (this.state.terribleWaitRoom != true) {
+          this.state.complaint.push(value);
         } else {
-          complaint.splice(complaint.findIndex(e => e === value), 1);
+          this.state.complaint.splice(
+            this.state.complaint.findIndex(e => e === value),
+            1
+          );
         }
 
         break;
       case "Отсутствие условий для инвалидов":
         this.setState({
-          invalid: !invalid
+          invalid: !this.state.invalid
         });
-        if (invalid != true) {
-          complaint.push(value);
+        if (this.state.invalid != true) {
+          this.state.complaint.push(value);
         } else {
-          complaint.splice(complaint.findIndex(e => e === value), 1);
+          this.state.complaint.splice(
+            this.state.complaint.findIndex(e => e === value),
+            1
+          );
         }
         break;
       default:
         break;
     }
 
-    console.log("complaint", complaint);
+    console.log("complaint", this.state.complaint);
   };
 
   render() {
-      const {selectedStar,staffIncompetence,waitTime,terribleWaitRoom,invalid} = this.state
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -218,7 +222,7 @@ export default class Estimates extends Component {
               <Text style={styles.subHeader}>{this.cons.name}</Text>
               <StarRating
                 maxStars={5}
-                rating={selectedStar}
+                rating={this.state.selectedStar}
                 starSize={35}
                 containerStyle={styles.starContainer}
                 fullStarColor={Theme.colors.yellow}
@@ -228,27 +232,27 @@ export default class Estimates extends Component {
             </View>
 
             <View style={styles.contentView}>
-              {selectedStar != 0 ? (
+              {this.state.selectedStar != 0 ? (
                 <React.Fragment>
                   <React.Fragment>
-                    {selectedStar === 5 ? null : (
+                    {this.state.selectedStar === 5 ? null : (
                       // <Text style={styles.complaintHeader}>
                       //   Что понравилось?
                       // </Text>
                       <Text style={styles.complaintHeader}>
-                        {selectedStar < 4
+                        {this.state.selectedStar < 4
                           ? "Что именно разочаровало?"
                           : "Что именно не понравилось?"}
                       </Text>
                     )}
                   </React.Fragment>
-                  {selectedStar === 5 ? null : (
+                  {this.state.selectedStar === 5 ? null : (
                     <Complaint
-                      selectedStar={selectedStar}
-                      staffIncompetence={staffIncompetence}
-                      waitTime={waitTime}
-                      terribleWaitRoom={terribleWaitRoom}
-                      invalid={invalid}
+                      selectedStar={this.state.selectedStar}
+                      staffIncompetence={this.state.staffIncompetence}
+                      waitTime={this.state.waitTime}
+                      terribleWaitRoom={this.state.terribleWaitRoom}
+                      invalid={this.state.invalid}
                       checkBoxPress={(type, value) =>
                         this.checkBoxPress(type, value)
                       }

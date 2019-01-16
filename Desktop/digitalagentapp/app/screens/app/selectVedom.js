@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image,Platform, TouchableOpacity, StyleSheet } from "react-native";
 import { scale } from "../../uitls/index";
 import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: Theme.fonts.sizes.h2,
     color: Theme.colors.yellow,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100",
     marginBottom: 32
   },

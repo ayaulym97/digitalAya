@@ -3,6 +3,7 @@ import {
   View,
   Image,
   Modal,
+  Platform,
   Text,
   TouchableOpacity,
   StyleSheet
@@ -77,7 +78,7 @@ export default class CodeConfirm extends Component {
             codeLength={4}
             space={16}
             size={33}
-            codeInputStyle={{ fontSize: 28, fontWeight: "100" }}
+            codeInputStyle={styles.codeinput}
             inputPosition="center"
             onFulfill={code => this.handleCode(code)}
           />
@@ -138,6 +139,13 @@ const styles = StyleSheet.create({
   downView: {
     flex: 6
   },
+
+  codeinput:{
+    fontSize: 28,
+    fontFamily:
+      Platform.OS === "android" ? "sans-serif-light" : undefined,
+    fontWeight: "100"
+  },
   logoView: {
     flex: 1.5,
     alignContent: "center",
@@ -150,6 +158,7 @@ const styles = StyleSheet.create({
     fontSize: Theme.fonts.sizes.h1,
     paddingTop: 35,
     paddingBottom: 10,
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   codeSendTxt: {

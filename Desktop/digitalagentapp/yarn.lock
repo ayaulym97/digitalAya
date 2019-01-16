@@ -4143,9 +4143,9 @@ react-native-image-picker@^0.27.1:
   version "0.27.1"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.27.1.tgz#32877c667e8c2713466fe178a6c7dd648e6cb5d3"
 
-react-native-masked-text@^1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/react-native-masked-text/-/react-native-masked-text-1.9.2.tgz#184f661025a77608f30ebcda27f416be67968b27"
+react-native-masked-text@^1.10.1:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/react-native-masked-text/-/react-native-masked-text-1.10.1.tgz#d62b4854e17bb888b63d1d0424318eb24500b5f4"
   dependencies:
     moment "2.19.3"
     tinymask "^1.0.2"
@@ -4169,7 +4169,7 @@ react-native-star-rating@^1.1.0:
     react-native-button "^2.3.0"
     react-native-vector-icons "^4.5.0"
 
-react-native-svg@^8.0.10:
+react-native-svg@8.0.10:
   version "8.0.10"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-8.0.10.tgz#b07e2342d1486220f5fda1a584e316e7d2d1f392"
   dependencies:

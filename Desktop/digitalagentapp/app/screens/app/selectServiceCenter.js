@@ -76,6 +76,8 @@ export default class SelectServiceCenter extends Component {
     }
     return (
       <SelectPage
+      type={"center"}
+      vedom={this.vedom}
         advanced={true}
         searchTxt={this.state.searchTxt}
         onChangeSearchTxt={searchTxt => this.handleSearchBar(searchTxt)}

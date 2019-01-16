@@ -44,9 +44,9 @@ export const StylePanel = {
     paddingVertical:10
   },
   downView: {
-    flex: 5,
+    flex: 3,
     justifyContent: 'center',
-    alignContent: 'center'
+    alignContent: 'center',
   },
   searchBarInput:{
     backgroundColor: Theme.colors.bcground,
@@ -59,6 +59,7 @@ export const StylePanel = {
     marginHorizontal: '4%',
     color: Theme.colors.yellow,
     marginVertical:scaleVertical(24),
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: '100'
   },
   searchBarContainer:{

@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Platform,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
 import { scale } from "../../uitls/index";
 import { Theme } from "../../uitls/theme";
 import { StylePanel } from "../../uitls/styles";
@@ -81,6 +88,7 @@ const styles = StyleSheet.create({
     fontSize: Theme.fonts.sizes.p6,
     color: Theme.colors.yellow,
     textAlign: "center",
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   subDownTxt: {
@@ -90,6 +98,7 @@ const styles = StyleSheet.create({
     color: Theme.colors.yellow,
     width: "90%",
     marginHorizontal: "5%",
+    fontFamily: Platform.OS === "android" ? "sans-serif-light" : undefined,
     fontWeight: "100"
   },
   waitTxt: {

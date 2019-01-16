@@ -9,7 +9,7 @@ export default class App extends PureComponent {
     };
   }
   async componentDidMount() {
-    await AsyncStorage.removeItem("id_token");
+    await AsyncStorage.removeItem("user_id");
     try {
       const item = await AsyncStorage.getItem("onboarding");
       console.log("####", item);

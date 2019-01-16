@@ -5,6 +5,7 @@ import {
   Text,
   Modal,
   Image,
+  Platform,
   StyleSheet,
   
 } from "react-native";
@@ -76,7 +77,7 @@ export default class PinPassword extends Component {
           <Text
             style={{
               color: Theme.colors.yellow,
-
+              fontFamily:Platform.OS === "android" ? "sans-serif-light" : undefined,
               textAlign: "center",
               fontWeight: "100",
               fontSize: Theme.fonts.sizes.p6

@@ -21,7 +21,7 @@ export default class Mtszn extends Component {
   async componentDidMount() {
     const user_id = await AsyncStorage.getItem("user_id");
     const token = await AsyncStorage.getItem("id_token");
-    console.log("TOKEN_25", user_id, token);
+    console.log("USER_ID", user_id,"TOKEN_ID", token);
     axios
       .get(base_url + `/api/mtszn`, {
         headers: { Authorization: token }
